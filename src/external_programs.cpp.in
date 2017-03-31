@@ -1,0 +1,2 @@
+const char *java_path = "${EXECUTABLE_JAVA}";
+const char *treks_jar_path = "${TREKS_JAR_PATH}";
