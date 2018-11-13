@@ -175,27 +175,44 @@ Input/Output:
                          |___/
 
 For building ProGraphMSA from source you need:
+
 CMake   >=2.8           (http://www.cmake.org)
 tclap   >=1.1.0         (http://tclap.sourceforge.net)
 Eigen   2.0.x or 3.0.x  (http://eigen.tuxfamily.org)
 
 on Debian/Ubuntu you can install these programs/libraries with:
-sudo apt-get install cmake libtclap-dev libeigen2-dev
+sudo apt-get install build-essential cmake libtclap-dev libeigen3-dev
 
+On a Mac, libraries can be installed with Homebrew:
+
+    brew install gcc cmake eigen tclap
+
+Note that homebrew installs these to non-default locations, so cmake should be
+called with the following additional options:
+
+    -D EIGEN_INCLUDE_DIR=/usr/local/include/eigen3 \
+    -D CMAKE_C_COMPILER=/usr/local/bin/gcc-7 \
+    -D CMAKE_CXX_COMPILER=/usr/local/bin/c++-7 \
+
+ProGraphML is written with C++11. Using the default Apple compiler is not
+recommended due to libc++ incompatibilities.
 
 Then perform the following command to configure/build/install ProGraphMSA:
-cd BUILD
-ccmake .. (press "c" to configure and "g" to generate the Makefile, see below
-           for additional configuration options)
-make ProGraphMSA
-make install
 
+    cd BUILD
+    cmake .. (press "c" to configure and "g" to generate the Makefile, see below
+               for additional configuration options)
+    make ProGraphMSA
+    make install
+
+An example build script is included (`build_ProGraphMSA.sh`) to illustrate this process.
+It can be modified for your particular system.
 
 Additional CMake configuration options (in "ccmake .."):
 
 EIGEN2_INCLUDE_DIR: set this to the path, where Eigen is installed, if you use
-                    Eigen 3.0.x or if Eigen has been installed at a non-default
-                    location (default location: /usr/include/eigen2)
+                    Eigen 2.0.x or if Eigen has been installed at a non-default
+                    location (default location: /usr/include/eigen3)
 
 WITH_EIGEN3:        set this to ON, if you want to compile ProGraphMSA with
                     Eigen 3.0.x
@@ -205,4 +222,5 @@ CMAKE_CXX_FLAGS:    add options for the C++ compiler, like optimization flags,
 
 WITH_SSE:           disable this option, if you build ProGraphMSA for a machine
                     that does not support SSE2
+
 
