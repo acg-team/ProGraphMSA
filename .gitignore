@@ -4,6 +4,8 @@ cmake-build-debug
 
 # External tools
 T-Reks.jar
+Align
+trust.tgz
 
 # IDEs
 .vscode
