@@ -40,6 +40,24 @@ static std::string strip(const std::string &s) {
 	return s.substr(start, end-start+1);
 }
 
+/**
+ * Parses repeats from a T-REKS (.trd) file.
+ *
+ * Checks the repeats against the full-length sequence for the protein.
+ *
+ * Example TREKS:
+ *
+ *     >sp|Q10567|AP1B1_HUMAN AP-1 complex subunit beta-1 OS=Homo sapiens OX=9606 GN=AP1B1 PE=1 SV=2
+ *     Length: 4 residues - nb: 5  from  625 to 645 - Psim:0.7 region Length:21
+ *     G-D-LL
+ *     G-D-LL
+ *     NLD-L-
+ *     G-PPVS
+ *     G-P-PL
+ * @param ss File stream
+ * @param seqs Map from IDs to the sequence string (parsed earlier from FASTA or other source)
+ * @return map from the ID to a list of repeats
+ */
 static std::map< std::string, std::vector<repeat_t> > parse_treks_output(std::istream *ss, const std::map<std::string,std::string> &seqs)
 {
 	std::map< std::string, std::vector<repeat_t> > map;
@@ -52,9 +70,11 @@ static std::map< std::string, std::vector<repeat_t> > parse_treks_output(std::is
 
 	while(std::getline(*ss,line)) {
 		if(line[0] == '>') {
+			// identifier
 			name = strip(line.substr(1));
 			++n_sequences;
 		} else if (line.compare(0,7,"Length:") == 0) {
+			// header line
 			size_t from = line.find("from");
 			if(from == line.npos) {
 				throw treks_exception("format error (from)");
@@ -122,6 +142,7 @@ static std::map< std::string, std::vector<repeat_t> > parse_treks_output(std::is
 
 			map[name].push_back(repeat);
 		}
+		// ignore comments, blank lines, etc
 	}
 
 	std::cerr << "found " << n_repeats << " repeats in " << n_sequences << " sequences" << std::endl;

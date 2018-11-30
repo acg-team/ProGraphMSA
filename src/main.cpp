@@ -310,6 +310,12 @@ int main(int argc, char** argv)
 	catch (TCLAP::ArgException &e)
 	{
 		std::cerr << "Command line error: " << e.error() << " for arg " << e.argId() << std::endl;
+		return 1;
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << "ERROR:" << e.what() << std::endl;
+		return 2;
 	}
 
 	return 0;
