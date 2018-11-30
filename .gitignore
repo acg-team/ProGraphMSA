@@ -1,3 +1,10 @@
-.idea
+# Intermediates
 BUILD
 cmake-build-debug
+
+# External tools
+T-Reks.jar
+
+# IDEs
+.vscode
+.idea
