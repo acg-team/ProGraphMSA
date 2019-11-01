@@ -1,0 +1,208 @@
+ ____             ____                 _     __  __ ____    _       _____ ____
+|  _ \ _ __ ___  / ___|_ __ __ _ _ __ | |__ |  \/  / ___|  / \    _|_   _|  _ \
+| |_) | '__/ _ \| |  _| '__/ _` | '_ \| '_ \| |\/| \___ \ / _ \ _| |_| | | |_) |
+|  __/| | | (_) | |_| | | | (_| | |_) | | | | |  | |___) / ___ \_   _| | |  _ <
+|_|   |_|  \___/ \____|_|  \__,_| .__/|_| |_|_|  |_|____/_/   \_\|_| |_| |_| \_\
+                                |_|
+       Fast and Robust Phylogeny-Aware Multiple Sequence Alignment
+              + tandem repeat unit insertions and deletions
+
+
+ ___                _
+| _ \_  _ _ _  _ _ (_)_ _  __ _
+|   / || | ' \| ' \| | ' \/ _` |
+|_|_\\_,_|_||_|_||_|_|_||_\__, |
+                          |___/
+ ___          ___               _    __  __ ___   _
+| _ \_ _ ___ / __|_ _ __ _ _ __| |_ |  \/  / __| /_\
+|  _/ '_/ _ \ (_ | '_/ _` | '_ \ ' \| |\/| \__ \/ _ \
+|_| |_| \___/\___|_| \__,_| .__/_||_|_|  |_|___/_/ \_\
+                          |_|
+
+The easiest way to run ProGraphMSA with the recommended command line parameters
+is to use the wrapper script "ProGraphMSA+TR.sh" included in this package. Just run
+
+./ProGraphMSA+TR.sh <file>
+
+or
+
+./ProGraphMSA+TR.sh -o <output_file> <file>
+
+
+ProGraphMSA+TR will run using ML distances, the WAG model, and will output an
+alignment in FASTA format. Further it will use T-REKS from the file T-Reks.jar
+to detect tandem repeats. To use TRUST adjust the installation path in
+trust2treks.py and run
+
+./ProGraphMSA+TR.sh --custom_tr_cmd trust2treks.py <file>
+
+
+
+  ___                              _   _ _
+ / __|___ _ __  _ __  __ _ _ _  __| | | (_)_ _  ___
+| (__/ _ \ '  \| '  \/ _` | ' \/ _` | | | | ' \/ -_)
+ \___\___/_|_|_|_|_|_\__,_|_||_\__,_| |_|_|_||_\___|
+
+                               _
+ _ __  __ _ _ _ __ _ _ __  ___| |_ ___ _ _ ___
+| '_ \/ _` | '_/ _` | '  \/ -_)  _/ -_) '_(_-<
+| .__/\__,_|_| \__,_|_|_|_\___|\__\___|_| /__/
+|_|
+
+
+USAGE:
+
+   ./ProGraphMSA   [--ancestral_seqs] [--all_trees] [-i <iterations>] [-T] [-I]
+                   [-M] [-m] [-a] [-C <count>] [-F] [--custom_model <file>] [-w]
+                   [-c <file>] [-r] [--custom_tr_cmd <command>] [--trd_output
+                   <filename>] [--read_repeats <T-Reks format output>] [-R] ...
+                   [--repalign] [--repeat_indel_ext <probability>]
+                   [--repeat_indel_rate <rate>] [-A] [-P <distance>] [-p
+                   <distance>] [-D <distance>] [-d <distance>] [-x <distance>]
+                   [-s <probability>] [-l <distance>] [-E <probability>] [-e
+                   <probability>] [-g <rate>] [-f] [--dna] [--codon] [--topology
+                   <newick file>] [-t <newick file>] [-o <filename>] [--]
+                   [--version] [-h] <fasta file>
+
+
+
+Tandem-repeat related parameters:
+=================================
+
+
+   -R,  --repeats
+     use T-REKS to identify tandem repeats
+
+   --custom_tr_cmd <command>
+     custom command for detecting tandem-repeats
+
+   --trd_output <filename>
+     write TR detector output to file
+
+   --read_repeats <T-REKS format output>
+     read TR detector output from file
+
+   --repalign
+     re-align detected tandem repeat units
+
+   --repeat_indel_ext <probability>
+     repeat indel extension probability
+
+   --repeat_indel_rate <rate>
+     insertion/deletion rate for repeat units (per site)
+
+
+Guide tree, distances, and substitution model:
+==============================================
+
+   -i <iterations>,  --iterations <iterations>
+     number of iterations re-estimating guide tree [default: 2]
+
+   -m,  --mldist
+     use distances estimated by a Maximum-Likelihood method
+
+   -a,  --nwdist
+     estimate initial distance tree from Needleman-Wunsch alignments
+
+   -D <distance>,  --max_dist <distance>
+     maximum distance for alignment
+
+   -F,  --estimate_aafreqs
+     estimate equilibrium amino acid frequencies from input data
+
+   -w,  --darwin
+     use model of evolution from Darwin (GONNET matrix and different indel model parameters, otherwise WAG will be used)
+
+   --custom_model <file>
+     custom substitution model in qmat format
+
+   -c <file>,  --cs_profile <file>
+     path to library of context-sensitive profiles (we distribute a copy in the 3rd_party folder)
+
+   -A,  --no_force_align_m
+     do not force alignment of initial Methionine
+
+
+Parameters for adjusting the indel model:
+=========================================
+
+   -l <distance>,  --edge_halflife <distance>
+     edge half-life (evolutionary distance at which the probability of re-using an unsused graph is halved)
+
+   -E <probability>,  --end_indel_prob <probability>
+     probability of mismatching sequence ends (set to -1 to disable this feature)
+
+   -e <probability>,  --gap_ext <probability>
+     gap extension probability
+
+   -g <rate>,  --indel_rate <rate>
+     insertion/deletion rate
+
+
+Input/Output:
+=============
+
+   -f,  --fasta
+     output fasta format (instead of stockholm)
+
+   -t <newick file>,  --tree <newick file>
+     initial guide tree
+
+   -o <filename>,  --output <filename>
+     Output file name
+
+   -I,  --input_order
+     output sequences in input order (default: tree order)
+
+   --dna
+     align DNA sequence
+
+   --codon
+     align DNA sequence based on a codon model
+
+   --ancestral_seqs
+     output all ancestral sequences
+
+   <fasta file>
+     (required) input sequences
+
+
+
+ ___      _ _    _ _              __
+| _ )_  _(_) |__| (_)_ _  __ _   / _|_ _ ___ _ __    ___ ___ _  _ _ _ __ ___
+| _ \ || | | / _` | | ' \/ _` | |  _| '_/ _ \ '  \  (_-</ _ \ || | '_/ _/ -_)
+|___/\_,_|_|_\__,_|_|_||_\__, | |_| |_| \___/_|_|_| /__/\___/\_,_|_| \__\___|
+                         |___/
+
+For building ProGraphMSA from source you need:
+CMake   >=2.8           (http://www.cmake.org)
+tclap   >=1.1.0         (http://tclap.sourceforge.net)
+Eigen   2.0.x or 3.0.x  (http://eigen.tuxfamily.org)
+
+on Debian/Ubuntu you can install these programs/libraries with:
+sudo apt-get install cmake libtclap-dev libeigen2-dev
+
+
+Then perform the following command to configure/build/install ProGraphMSA:
+cd BUILD
+ccmake .. (press "c" to configure and "g" to generate the Makefile, see below
+           for additional configuration options)
+make ProGraphMSA
+make install
+
+
+Additional CMake configuration options (in "ccmake .."):
+
+EIGEN2_INCLUDE_DIR: set this to the path, where Eigen is installed, if you use
+                    Eigen 3.0.x or if Eigen has been installed at a non-default
+                    location (default location: /usr/include/eigen2)
+
+WITH_EIGEN3:        set this to ON, if you want to compile ProGraphMSA with
+                    Eigen 3.0.x
+
+CMAKE_CXX_FLAGS:    add options for the C++ compiler, like optimization flags,
+                    or additional search paths for include files (-I <path>)
+
+WITH_SSE:           disable this option, if you build ProGraphMSA for a machine
+                    that does not support SSE2
+
