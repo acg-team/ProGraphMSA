@@ -224,3 +224,32 @@ WITH_SSE:           disable this option, if you build ProGraphMSA for a machine
                     that does not support SSE2
 
 
+  _  _ _    _
+ | || (_)__| |_ ___ _ _ _  _
+ | __ | (_-<  _/ _ \ '_| || |
+ |_||_|_/__/\__\___/_|  \_, |
+                        |__/
+
+ProGraphMSA was written by Adam Szalkowski:
+
+Adam M. Szalkowski and Maria Anisimova. Graph-based modeling of tandem repeats
+  improves global multiple sequence alignment.
+  Nucleic Acids Research, Volume 41, Issue 17, 1 September 2013, Page e162,
+  https://doi.org/10.1093/nar/gkt628
+
+The original source was hosted at Source Forge:
+  https://sourceforge.net/projects/prographmsa/
+A copy of this is also hosted on Adam's github:
+  https://github.com/butzist/ProGraphMSA
+
+ProGraphMSA is now maintained by the Anisimova group at
+  https://github.com/acg-team/ProGraphMSA
+
+   ___         _       _ _         _
+  / __|___ _ _| |_ _ _(_) |__ _  _| |_ ___ _ _ ___
+ | (__/ _ \ ' \  _| '_| | '_ \ || |  _/ _ \ '_(_-<
+  \___\___/_||_\__|_| |_|_.__/\_,_|\__\___/_| /__/
+
+Adam Szalkowski
+Spencer Bliven
+
